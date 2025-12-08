@@ -1,0 +1,312 @@
+:root{
+  --bg:#f5f5f7;
+  --card:#ffffff;
+  --text:#171717;
+  --muted:#5b5b5b;
+  --border:#e5e7eb;
+  --accent:#4c6fff;
+  --accentSoft: rgba(76, 111, 255, .10);
+  --shadow: 0 14px 30px rgba(15, 23, 42, 0.08);
+  --radius:16px;
+
+  --ok: rgba(16,185,129,.14);
+  --c1: rgba(245,158,11,.12);
+  --c2: rgba(245,158,11,.20);
+  --c3: rgba(239,68,68,.16);
+  --c4: rgba(239,68,68,.24);
+  --me: rgba(239,68,68,.42);
+}
+
+*{box-sizing:border-box;margin:0;padding:0}
+body{
+  font-family: system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  background: radial-gradient(circle at top, #e9eeff 0, var(--bg) 45%, var(--bg) 100%);
+  color:var(--text);
+  font-size:16px;
+}
+a{color:var(--accent);text-decoration:none}
+a:hover{text-decoration:underline}
+
+/* 通用容器：略宽，但不铺满超大屏 */
+.container{
+  max-width: 1320px;
+  margin:0 auto;
+  padding:22px 18px 50px
+}
+
+/* 顶部条（房间页用） */
+.topbar{
+  display:flex;align-items:center;justify-content:space-between;gap:12px;
+  margin-bottom:16px;
+}
+.brand{font-weight:800;letter-spacing:.08em;text-transform:uppercase;font-size:13px;color:var(--muted)}
+.nav{display:flex;gap:10px;flex-wrap:wrap}
+.pill{
+  border:1px solid transparent;border-radius:999px;padding:7px 12px;
+  background:rgba(255,255,255,.6);
+}
+.pill:hover{border-color:var(--border);text-decoration:none}
+
+/* ===== 首页：居中、简洁、大字 ===== */
+.homePage{
+  min-height: 100vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding: 24px 18px;
+}
+.homeCard{
+  width: min(820px, 96vw);
+  background: var(--card);
+  border: 1px solid rgba(255,255,255,.9);
+  border-radius: 28px;
+  box-shadow: var(--shadow);
+  padding: 28px 22px 22px;
+  text-align: center;
+}
+.homeBrand{
+  font-weight:850;
+  letter-spacing:.14em;
+  text-transform:uppercase;
+  font-size:12px;
+  color: var(--muted);
+}
+.homeTitle{
+  margin-top: 12px;
+  font-size: 36px;
+  line-height: 1.15;
+  font-weight: 850;
+  letter-spacing: .01em;
+}
+.homeButtons{
+  margin-top: 18px;
+  display:flex;
+  gap: 14px;
+  justify-content:center;
+  flex-wrap:wrap;
+}
+.homeHint{
+  margin-top: 14px;
+  font-size: 13px;
+  color: var(--muted);
+  line-height: 1.7;
+}
+@media (max-width:520px){
+  .homeTitle{font-size:30px}
+}
+
+/* 卡片 */
+.card{
+  background:var(--card);
+  border:1px solid rgba(255,255,255,.9);
+  border-radius:24px;
+  box-shadow:var(--shadow);
+  padding:18px;
+}
+
+.grid2{display:grid;grid-template-columns: 1.6fr 1fr;gap:14px}
+@media (max-width:900px){.grid2{grid-template-columns:1fr}}
+
+h1{font-size:24px;margin-bottom:6px}
+.subtitle{color:var(--muted);font-size:14px;margin-bottom:14px;line-height:1.6}
+
+.btnRow{display:flex;gap:10px;flex-wrap:wrap;margin-top:10px}
+.btn{
+  border:1px solid transparent;border-radius:999px;padding:10px 14px;
+  cursor:pointer;font-size:14px;
+  background:transparent;transition:.15s ease;
+  user-select:none;
+}
+.btnPrimary{background:var(--accent);color:#fff;box-shadow:0 10px 22px rgba(76,111,255,.35)}
+.btnPrimary:hover{transform:translateY(-1px);box-shadow:0 14px 28px rgba(76,111,255,.45)}
+.btnGhost{border-color:var(--border);background:rgba(248,250,252,.7)}
+.btnDanger{border-color:rgba(239,68,68,.35);background:rgba(239,68,68,.08);color:#b91c1c}
+.btnTiny{padding:7px 10px;font-size:12px}
+.btnBig{padding:12px 18px;font-size:16px}
+@media (max-width:520px){
+  .btnBig{width: min(520px, 92vw);}
+}
+.btn:disabled{opacity:.6;cursor:not-allowed;transform:none}
+
+.field{display:flex;flex-direction:column;gap:6px;margin:10px 0}
+label{font-size:12px;color:var(--muted)}
+input,select{
+  border:1px solid var(--border);
+  border-radius:12px;
+  padding:10px 12px;
+  font-size:14px;
+  outline:none;
+  background:#fff;
+}
+input:focus,select:focus{border-color:rgba(76,111,255,.55);box-shadow:0 0 0 4px rgba(76,111,255,.12)}
+
+.hr{height:1px;background:var(--border);margin:14px 0}
+.small{font-size:12px;color:var(--muted);line-height:1.6}
+
+.toast{
+  position:fixed;left:50%;bottom:18px;transform:translateX(-50%);
+  background:rgba(15,23,42,.92);color:#fff;padding:10px 12px;border-radius:12px;
+  font-size:13px;opacity:0;pointer-events:none;transition:.18s ease;max-width:min(520px,92vw)
+}
+.toast.show{opacity:1;pointer-events:auto}
+
+.modalBackdrop{
+  position:fixed;inset:0;background:rgba(15,23,42,.35);
+  display:none;align-items:center;justify-content:center;padding:16px;
+}
+.modalBackdrop.show{display:flex}
+.modal{
+  width:min(600px, 96vw);
+  background:rgba(255,255,255,.92);
+  border:1px solid rgba(255,255,255,.95);
+  border-radius:22px;
+  box-shadow: 0 20px 60px rgba(15,23,42,.22);
+  padding:16px;
+  backdrop-filter: blur(16px);
+}
+.modalHeader{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:8px}
+.modalTitle{font-weight:800;font-size:15px}
+.iconBtn{
+  border:1px solid var(--border);border-radius:12px;padding:6px 9px;background:#fff;cursor:pointer
+}
+
+/* room page */
+.roomHeader{
+  display:flex;align-items:flex-start;justify-content:space-between;gap:12px;flex-wrap:wrap;
+  margin-bottom:12px;
+}
+.roomTitle{font-size:20px;font-weight:850}
+.roomMeta{font-size:12px;color:var(--muted);line-height:1.6}
+.kv{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px}
+.kv span{font-size:12px;background:#f3f4f6;border:1px solid var(--border);padding:4px 8px;border-radius:999px}
+
+/* ===== 主列 + 侧栏布局 ===== */
+.panelGrid{
+  display:grid;
+  grid-template-columns: minmax(0, 1.9fr) minmax(300px, 1fr);
+  gap:18px;
+  align-items:flex-start;
+}
+.mainColumn{min-width:0;}
+.sideColumn{
+  min-width:0;
+  position:sticky;
+  top:0;
+}
+@media (max-width:1100px){
+  .panelGrid{
+    grid-template-columns:1fr;
+  }
+  .sideColumn{
+    position:static;
+  }
+}
+
+.panelTitle{font-weight:800;font-size:14px;margin-bottom:8px}
+
+/* 成员列表：网格，便于容纳更多人 */
+.memberList{
+  display:grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap:10px;
+}
+@media (max-width:520px){
+  .memberList{grid-template-columns:1fr}
+}
+
+.memberItem{
+  display:flex;align-items:center;justify-content:space-between;gap:8px;
+  padding:10px 10px;border:1px solid var(--border);border-radius:14px;background:#fff;
+}
+.memberLeft{display:flex;align-items:center;gap:10px;min-width:0}
+.dot{width:10px;height:10px;border-radius:999px;background:#cbd5e1;flex:0 0 auto}
+.dot.on{background:rgba(16,185,129,.85)}
+.memberName{font-size:14px;font-weight:650;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.memberRole{font-size:12px;color:var(--muted);white-space:nowrap}
+.memberBadge{
+  font-size:11px;
+  padding:2px 8px;
+  border-radius:999px;
+  border:1px solid var(--border);
+  background:#f8fafc;
+  color:#475569;
+  white-space:nowrap;
+}
+.memberBadge.ok{
+  background: rgba(16,185,129,.12);
+  border-color: rgba(16,185,129,.25);
+  color: #047857;
+}
+
+/* 时间网格：收窄列宽，横向滚动 */
+.gridWrap{
+  border:1px solid var(--border);
+  border-radius:18px;
+  overflow:hidden;
+  background:rgba(255,255,255,.75);
+}
+.gridScroll{
+  overflow:auto;
+  max-height: 64vh;
+}
+.timeGrid{
+  --days: 3;
+  display:grid;
+  grid-template-columns: 88px repeat(var(--days), minmax(130px, 1fr));
+  grid-auto-rows: 34px;
+}
+.cell{
+  border-right:1px solid var(--border);
+  border-bottom:1px solid var(--border);
+  display:flex;align-items:center;justify-content:center;
+  font-size:12px;
+  background:rgba(255,255,255,.55);
+}
+.cell.hdr{
+  position:sticky;top:0;z-index:5;
+  background:rgba(255,255,255,.92);
+  font-weight:800;
+}
+.cell.time{
+  position:sticky;left:0;z-index:4;
+  background:rgba(255,255,255,.92);
+  font-weight:750;
+}
+.cell.corner{
+  position:sticky;left:0;top:0;z-index:6;
+  background:rgba(255,255,255,.96);
+}
+.cell.slot{
+  cursor:crosshair;
+  transition: background .06s ease;
+  user-select:none;
+  touch-action: none;
+}
+.cell.slot.ok{ background: var(--ok); }
+.cell.slot.r1{ background: var(--c1); }
+.cell.slot.r2{ background: var(--c2); }
+.cell.slot.r3{ background: var(--c3); }
+.cell.slot.r4{ background: var(--c4); }
+.cell.slot.me{ background: var(--me); }
+
+.cell.slot:hover{
+  outline: 2px solid rgba(76,111,255,.35);
+  outline-offset: -2px;
+}
+
+.sideBox{
+  border:1px solid var(--border);
+  border-radius:18px;
+  padding:12px;
+  background:rgba(255,255,255,.82);
+}
+.miniTitle{font-size:12px;color:var(--muted);margin-bottom:6px}
+.mono{font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace}
+.list{display:flex;flex-direction:column;gap:8px}
+.listItem{
+  border:1px solid var(--border);
+  border-radius:14px;
+  padding:10px;
+  background:#fff;
+  font-size:13px;
+}

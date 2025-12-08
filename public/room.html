@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>模辩房间</title>
+  <link rel="stylesheet" href="/app.css" />
+</head>
+<body>
+  <div class="container">
+    <div class="topbar">
+      <div class="brand">ROOM · SCHEDULING</div>
+      <div class="nav">
+        <a class="pill" href="/">返回首页</a>
+        <span class="pill" id="connState">连接中…</span>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="roomHeader">
+        <div>
+          <div class="roomTitle" id="roomTitle">房间加载中…</div>
+          <div class="roomMeta" id="roomMeta"></div>
+          <div class="kv" id="roomKV"></div>
+        </div>
+        <div class="btnRow">
+          <button class="btn btnGhost btnTiny" id="copyCodeBtn">复制房间码</button>
+          <button class="btn btnGhost btnTiny" id="copyInviteBtn">复制邀请链接</button>
+          <button class="btn btnGhost btnTiny" id="copyHostBtn">复制房主链接</button>
+          <button class="btn btnGhost btnTiny" id="leaveBtn">退出房间</button>
+        </div>
+      </div>
+
+      <div class="panelGrid">
+        <!-- 左：时间网格（主列） -->
+        <div class="mainColumn">
+          <div class="panelTitle">涂掉你 <span style="color:#b91c1c">绝对不行</span> 的时间（支持拖拽）</div>
+          <div class="small" id="hintText">
+            你只需要把“不能参加”的格子涂掉。系统会自动找出全员都行的时间段。<br/>
+            房主会看到每个冲突时间中不可行的成员。
+          </div>
+
+          <div class="btnRow" style="margin-top:10px">
+            <button class="btn btnGhost btnTiny" id="clearMine">清空我的不可行时间</button>
+            <button class="btn btnGhost btnTiny" id="renameBtn">修改我的名字</button>
+
+            <!-- 成员确认按钮（房主页面 JS 会隐藏） -->
+            <button class="btn btnPrimary btnTiny" id="confirmBtn" style="display:none">确认提交</button>
+
+            <span class="small" id="saveState" style="align-self:center;margin-left:6px"></span>
+          </div>
+
+          <div class="gridWrap" style="margin-top:10px">
+            <div class="gridScroll">
+              <div class="timeGrid" id="timeGrid"></div>
+            </div>
+          </div>
+
+          <div class="hr"></div>
+          <div class="sideBox">
+            <div class="miniTitle">你刚刚选中的格子信息</div>
+            <div id="cellInfo" class="small">点击/触摸任意格子查看详情。</div>
+          </div>
+        </div>
+
+        <!-- 右：侧栏（成员列表 + 房主面板 + 可行时间） -->
+        <aside class="sideColumn">
+          <div class="sideBox">
+            <div class="panelTitle">成员列表</div>
+            <div class="memberList" id="memberList"></div>
+          </div>
+
+          <div style="height:12px"></div>
+
+          <div class="sideBox" id="hostPanel" style="display:none">
+            <div class="panelTitle">房主面板</div>
+
+            <div class="field">
+              <label>修改模辩标题</label>
+              <input id="editTitle" placeholder="新标题" />
+            </div>
+            <div class="btnRow">
+              <button class="btn btnPrimary btnTiny" id="saveTitleBtn">保存标题</button>
+              <button class="btn btnDanger btnTiny" id="dissolveBtn">解散房间</button>
+            </div>
+
+            <div class="hr"></div>
+            <div class="small">
+              说明：房主链接带管理权限，请不要随便外传。<br/>
+              你可以踢人、改标题、解散房间。
+            </div>
+          </div>
+
+          <div style="height:12px"></div>
+
+          <div class="sideBox">
+            <div class="panelTitle">全员可行时间段（实时）</div>
+            <div class="small" id="okSlotsHint"></div>
+            <div class="list" id="okSlots"></div>
+          </div>
+        </aside>
+      </div>
+    </div>
+  </div>
+
+  <!-- 入场/改名 Modal -->
+  <div class="modalBackdrop" id="nameModal">
+    <div class="modal">
+      <div class="modalHeader">
+        <div class="modalTitle" id="nameModalTitle">请输入你的姓名</div>
+        <button class="iconBtn" id="nameModalClose">关闭</button>
+      </div>
+      <div class="field">
+        <label>姓名</label>
+        <input id="nameInput" placeholder="例如：二辩/三辩/队长..." />
+      </div>
+      <div class="btnRow">
+        <button class="btn btnPrimary" id="nameSubmit">确认</button>
+      </div>
+      <div class="hr"></div>
+      <div class="small" id="nameModalHint"></div>
+    </div>
+  </div>
+
+  <div class="toast" id="toast"></div>
+
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="/room.js"></script>
+</body>
+</html>

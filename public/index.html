@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>辩论赛约模辩小助手</title>
+  <link rel="stylesheet" href="/app.css" />
+</head>
+<body>
+  <main class="homePage">
+    <section class="homeCard" aria-label="模辩排期入口">
+      <div class="homeBrand">MOCK · DEBATE · HELPER</div>
+      <h1 class="homeTitle">辩论赛约模辩小助手</h1>
+
+      <div class="homeButtons">
+        <button class="btn btnPrimary btnBig" id="openCreate">创建一场模辩</button>
+        <button class="btn btnGhost btnBig" id="openJoin">加入一场模辩</button>
+      </div>
+
+      <div class="homeHint">
+        创建后会生成房间码，把房间码发给对方队伍即可加入。
+      </div>
+    </section>
+  </main>
+
+  <!-- 创建模态框 -->
+  <div class="modalBackdrop" id="createModal">
+    <div class="modal">
+      <div class="modalHeader">
+        <div class="modalTitle">创建一场模辩</div>
+        <button class="iconBtn" id="closeCreate">关闭</button>
+      </div>
+
+      <div class="field">
+        <label>模辩标题</label>
+        <input id="cTitle" placeholder="例：全英赛初赛模辩，帝国理工学院 vs 爱丁堡大学" />
+      </div>
+
+      <div class="grid2" style="grid-template-columns:1fr 1fr;gap:10px;">
+        <div class="field">
+          <label>开始日期</label>
+          <input id="cStartDate" type="date" />
+        </div>
+        <div class="field">
+          <label>结束日期（含当天）</label>
+          <input id="cEndDate" type="date" />
+        </div>
+      </div>
+
+      <div class="grid2" style="grid-template-columns:1fr 1fr;gap:10px;">
+        <div class="field">
+          <label>每天开始时间</label>
+          <input id="cDayStart" type="time" value="09:00" />
+        </div>
+        <div class="field">
+          <label>每天结束时间</label>
+          <input id="cDayEnd" type="time" value="23:00" />
+        </div>
+      </div>
+
+      <div class="field">
+        <label>创建者姓名（房主）</label>
+        <input id="cName" placeholder="你的名字" />
+      </div>
+
+      <div class="btnRow">
+        <button class="btn btnPrimary" id="doCreate">创建并进入</button>
+        <button class="btn btnGhost" id="demoFill">帮我随便填一套示例</button>
+      </div>
+
+      <div class="hr"></div>
+      <div class="small" id="createResult"></div>
+    </div>
+  </div>
+
+  <!-- 加入模态框 -->
+  <div class="modalBackdrop" id="joinModal">
+    <div class="modal">
+      <div class="modalHeader">
+        <div class="modalTitle">加入一场模辩</div>
+        <button class="iconBtn" id="closeJoin">关闭</button>
+      </div>
+
+      <div class="field">
+        <label>房间码（6 位）</label>
+        <input id="jCode" placeholder="例如：123456" inputmode="numeric" />
+      </div>
+
+      <div class="field">
+        <label>你的姓名</label>
+        <input id="jName" placeholder="你的名字" />
+      </div>
+
+      <div class="btnRow">
+        <button class="btn btnPrimary" id="doJoin">加入并进入</button>
+      </div>
+
+      <div class="hr"></div>
+      <div class="small" id="joinResult"></div>
+    </div>
+  </div>
+
+  <div class="toast" id="toast"></div>
+
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="/index.js"></script>
+</body>
+</html>
