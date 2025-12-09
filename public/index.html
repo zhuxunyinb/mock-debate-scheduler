@@ -14,11 +14,13 @@
 
       <div class="homeButtons">
         <button class="btn btnPrimary btnBig" id="openCreate">创建一场模辩</button>
-        <button class="btn btnGhost btnBig" id="openJoin">加入一场模辩</button>
+        <button class="btn btnGhost btnBig" id="openJoin">加入 / 重新登录</button>
       </div>
 
       <div class="homeHint">
-        创建后会生成房间码，把房间码发给对方队伍即可加入。
+        进入房间需要：房间码 + 姓名 + 4位密码。<br/>
+        房间会在“结束日期”当天结束后自动过期销毁。<br/>
+        房主创建时设置 <b>房间时区</b>；成员进入后可切换 <b>显示时区</b>。
       </div>
     </section>
   </main>
@@ -59,8 +61,20 @@
       </div>
 
       <div class="field">
-        <label>创建者姓名（房主）</label>
-        <input id="cName" placeholder="你的名字" />
+        <label>房间时区（影响“日期范围/每天时间段”的定义）</label>
+        <input id="cTimeZone" list="tzList" placeholder="例如：Asia/Shanghai 或 Europe/London" />
+        <div class="small">成员可以在房间内把时间表切换到自己的时区显示。</div>
+      </div>
+
+      <div class="grid2" style="grid-template-columns:1fr 1fr;gap:10px;">
+        <div class="field">
+          <label>创建者姓名（房主）</label>
+          <input id="cName" placeholder="你的名字" />
+        </div>
+        <div class="field">
+          <label>房主密码（4位数字）</label>
+          <input id="cPin" placeholder="例如：0420" inputmode="numeric" maxlength="4" />
+        </div>
       </div>
 
       <div class="btnRow">
@@ -77,22 +91,28 @@
   <div class="modalBackdrop" id="joinModal">
     <div class="modal">
       <div class="modalHeader">
-        <div class="modalTitle">加入一场模辩</div>
+        <div class="modalTitle">加入 / 重新登录</div>
         <button class="iconBtn" id="closeJoin">关闭</button>
       </div>
 
       <div class="field">
         <label>房间码（6 位）</label>
-        <input id="jCode" placeholder="例如：123456" inputmode="numeric" />
+        <input id="jCode" placeholder="例如：123456" inputmode="numeric" maxlength="6" />
       </div>
 
-      <div class="field">
-        <label>你的姓名</label>
-        <input id="jName" placeholder="你的名字" />
+      <div class="grid2" style="grid-template-columns:1fr 1fr;gap:10px;">
+        <div class="field">
+          <label>你的姓名</label>
+          <input id="jName" placeholder="你的名字" />
+        </div>
+        <div class="field">
+          <label>你的密码（4位数字）</label>
+          <input id="jPin" placeholder="例如：0420" inputmode="numeric" maxlength="4" />
+        </div>
       </div>
 
       <div class="btnRow">
-        <button class="btn btnPrimary" id="doJoin">加入并进入</button>
+        <button class="btn btnPrimary" id="doJoin">进入房间</button>
       </div>
 
       <div class="hr"></div>
@@ -100,9 +120,27 @@
     </div>
   </div>
 
+  <!-- 常用时区列表（可手输） -->
+  <datalist id="tzList">
+    <option value="Asia/Shanghai"></option>
+    <option value="Asia/Hong_Kong"></option>
+    <option value="Asia/Singapore"></option>
+    <option value="Asia/Tokyo"></option>
+    <option value="Europe/London"></option>
+    <option value="Europe/Paris"></option>
+    <option value="Europe/Berlin"></option>
+    <option value="America/New_York"></option>
+    <option value="America/Chicago"></option>
+    <option value="America/Los_Angeles"></option>
+    <option value="America/Toronto"></option>
+    <option value="Australia/Sydney"></option>
+    <option value="UTC"></option>
+  </datalist>
+
   <div class="toast" id="toast"></div>
 
   <script src="/socket.io/socket.io.js"></script>
   <script src="/index.js"></script>
 </body>
 </html>
+
