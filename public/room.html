@@ -25,9 +25,7 @@
         </div>
         <div class="btnRow">
           <button class="btn btnGhost btnTiny" id="copyCodeBtn">复制房间码</button>
-          <button class="btn btnGhost btnTiny" id="copyInviteBtn">复制邀请链接</button>
-          <button class="btn btnGhost btnTiny" id="copyHostBtn">复制房主链接</button>
-          <button class="btn btnGhost btnTiny" id="leaveBtn">退出房间</button>
+          <button class="btn btnGhost btnTiny" id="logoutBtn">退出登录</button>
         </div>
       </div>
 
@@ -37,12 +35,25 @@
           <div class="panelTitle">涂掉你 <span style="color:#b91c1c">绝对不行</span> 的时间（支持拖拽）</div>
           <div class="small" id="hintText">
             你只需要把“不能参加”的格子涂掉。系统会自动找出全员都行的时间段。<br/>
-            房主会看到每个冲突时间中不可行的成员。
+            房主会看到每个冲突时间到底是谁不行。
           </div>
+
+          <!-- 时区栏 -->
+          <div class="grid2" style="grid-template-columns:1fr 1fr;gap:10px;margin-top:10px">
+            <div class="field">
+              <label>房间时区（房主设置，固定）</label>
+              <input id="roomTimeZone" readonly />
+            </div>
+            <div class="field">
+              <label>显示时区（你可以切换）</label>
+              <input id="displayTimeZone" list="tzList" placeholder="例如：Asia/Shanghai" />
+            </div>
+          </div>
+          <div class="small" id="tzTip">提示：切换显示时区只影响“显示”，你涂掉的格子仍是同一个绝对时间槽。</div>
 
           <div class="btnRow" style="margin-top:10px">
             <button class="btn btnGhost btnTiny" id="clearMine">清空我的不可行时间</button>
-            <button class="btn btnGhost btnTiny" id="renameBtn">修改我的名字</button>
+            <button class="btn btnGhost btnTiny" id="renameBtn">改我的名字</button>
 
             <!-- 成员确认按钮（房主页面 JS 会隐藏） -->
             <button class="btn btnPrimary btnTiny" id="confirmBtn" style="display:none">确认提交</button>
@@ -63,7 +74,7 @@
           </div>
         </div>
 
-        <!-- 右：侧栏（成员列表 + 房主面板 + 可行时间） -->
+        <!-- 右：侧栏 -->
         <aside class="sideColumn">
           <div class="sideBox">
             <div class="panelTitle">成员列表</div>
@@ -86,8 +97,8 @@
 
             <div class="hr"></div>
             <div class="small">
-              说明：房主链接带管理权限，请不要随便外传。<br/>
-              你可以踢人、改标题、解散房间。
+              房间会在“结束日期”当天结束后自动过期销毁。<br/>
+              房主可踢人、改标题、解散房间。
             </div>
           </div>
 
@@ -103,24 +114,49 @@
     </div>
   </div>
 
-  <!-- 入场/改名 Modal -->
-  <div class="modalBackdrop" id="nameModal">
+  <!-- 登录 / 改名 Modal -->
+  <div class="modalBackdrop" id="authModal">
     <div class="modal">
       <div class="modalHeader">
-        <div class="modalTitle" id="nameModalTitle">请输入你的姓名</div>
-        <button class="iconBtn" id="nameModalClose">关闭</button>
+        <div class="modalTitle" id="authModalTitle">登录到房间</div>
+        <button class="iconBtn" id="authModalClose">关闭</button>
       </div>
+
       <div class="field">
         <label>姓名</label>
-        <input id="nameInput" placeholder="例如：二辩/三辩/队长..." />
+        <input id="nameInput" placeholder="例如：队长A / 一辩 / 张三" />
       </div>
+
+      <div class="field" id="pinField">
+        <label>4位密码（数字）</label>
+        <input id="pinInput" placeholder="例如：0420" inputmode="numeric" maxlength="4" />
+      </div>
+
       <div class="btnRow">
-        <button class="btn btnPrimary" id="nameSubmit">确认</button>
+        <button class="btn btnPrimary" id="authSubmit">确认</button>
       </div>
+
       <div class="hr"></div>
-      <div class="small" id="nameModalHint"></div>
+      <div class="small" id="authModalHint"></div>
     </div>
   </div>
+
+  <!-- 常用时区 -->
+  <datalist id="tzList">
+    <option value="Asia/Shanghai"></option>
+    <option value="Asia/Hong_Kong"></option>
+    <option value="Asia/Singapore"></option>
+    <option value="Asia/Tokyo"></option>
+    <option value="Europe/London"></option>
+    <option value="Europe/Paris"></option>
+    <option value="Europe/Berlin"></option>
+    <option value="America/New_York"></option>
+    <option value="America/Chicago"></option>
+    <option value="America/Los_Angeles"></option>
+    <option value="America/Toronto"></option>
+    <option value="Australia/Sydney"></option>
+    <option value="UTC"></option>
+  </datalist>
 
   <div class="toast" id="toast"></div>
 
